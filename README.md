@@ -48,6 +48,7 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 插件移植的Option中的对象的结构的属性名与js中保持一致，对象的相关属性及可输入值请参考ECharts官方文档（除个写法特别灵活的属性，比如：series中markPoint的data，该对象没有细化，需要使用完整字符串设置，示例：8_Kline，不排除个别对象移植有问题，如发现影响使用请留言或邮件反馈）。  
 
 为了实现js中属性值的灵活写法，插件中所有非对象属性都为字符串类型（比如：legend的left属性可以输入20、'20%'、 'left', 'center', 'right'等），所以如果属性值是字符串类型，设置时需要带上单引号。  
+
 示例：  
 ![image](img/10.jpg) 
 ![image](img/11.jpg) 
@@ -57,6 +58,7 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 由于ECharts的Option中存在很多同名对象，比如：很多对象都包含data，但部分对象的data结构一致（xAxis和yAxis），而另一些则不同。为了减少插件中的对象数量，移植时将同名的对象进行了汇总，一种结构在插件中生成一个对应的对象，多种结构的同名对象，移植时在对象名后带上索引号加以区分，唯一的对象名则不带序号，比如Echarts 的Option中共有25个不同结构的data对象，因此移植后插件代码中有EChartsOption_data0到EChartsOption_data24，共25个data对象，xAxis和yAxis中的data对象使用的是UEChartsOption_data1，而series的pie中的data对象使用的是UEChartsOption_data5。  
 
 当需要创建一个data对象时，如果并不清楚是哪个UEChartsOption_data，可以先创建Set节点，然后查看需要的对象类型，再创建构造该类型的节点，或参考后面的对应关系表。  
+
 下图中通过创建yAxis的Set data节点可以看到，data是EChartsOption_data1类型数组  
 ![image](img/15.jpg)  
 # 4	特殊蓝图节点说明  
@@ -65,9 +67,9 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 ![image](img/17.jpg)  
 节点中的AdditionalScript可以设置额外的js脚本，脚本位置在ECharts setOption之前，可以添加js的数据和函数定义，并在Option中调用。添加的数据和函数定义为全局变量，后续如果再次调用SetOption时也可以访问，参见示例：6_BaiduMap和8_KLine。  
 
-其中SetOption节点返回了最终生成的Option的Json字符串（含AddtionScript），如果设置后ECharts显示异常，可以获取该字符串，在Web版本的ECharts中进行错误分析（如果为插件bug请留言或邮件反馈）  
+其中SetOption节点返回了最终生成的Option的Json字符串（含AddtionScript）  
 # 5	示例说明  
-    打开插件中Content\Example\ExampleMap关卡，编辑关卡的LevelBlueprint，在Create Widget节点中选择示例WidgetBlueprint，然后运行关卡  
+打开插件中Content\Example\ExampleMap关卡，编辑关卡的LevelBlueprint，在Create Widget节点中选择示例WidgetBlueprint，然后运行关卡（更多示例添加中）  
 ![image](img/18.jpg)  
 示例功能
 1_RawJsonString  
@@ -94,10 +96,15 @@ ECharts的官方示例：全国主要城市空气质量 - 百度地图，加载�
 8_KLine  
 ECharts的官方示例：上证指数，同时使用了Json字符串和Option对象来设置EChartsWidget  
 
-# 6 技巧  
-1、固定option（样式） 动态option（数据）  
-2、判断要创建对象的名称  
-3、Option对象中无法支持的写法，使用Json字符串方式设置  
+# 6 使用技巧  
+## 与ECharts一样，插件可以按需设置Option，需要更新Option时只需要设置更新的部分内容即可  
+比如：
+1、把Option的样式部分和数据部分分开，样式部分只设置一次，数据部分可以多次设置。
+2、将无法用Option对象设置的属性，用Json字符串的方式来设置  
+3、如果Option对象设置后ECharts无法正确显示，可以获取SetOption节点返回的符串，复制到Web版本的ECharts中进行错误分析（如果为插件bug请留言或邮件反馈）  
+
+## 判断要创建对象的名称  
+
 # 7	已知问题  
 ## 1、控件隐藏再显示后无响应
 同时运行的ECharts Widget控件超过5个时（包含引擎内置WebBrowser控件），控件隐藏再显示后只有5个控件有响应，此为引擎WebBrowser插件bug，参见：https://issues.unrealengine.com/issue/UE-171882 
