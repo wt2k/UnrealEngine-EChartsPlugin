@@ -1,5 +1,5 @@
 # UnrealEngine-EChartsPlugin
-# 1	简介
+# 简介
 本插件将ECharts集成到了Unreal Engine中，基于UMG控件，ECharts版本5.4.4，目前测试了Windows平台，实现了以下功能：  
 1、	支持使用蓝图节点动态创建ECharts Option  
 2、	支持直接使用Json字符串的ECharts Option  
@@ -9,13 +9,16 @@
 6、	支持ECharts背景透明控制  
 7、	支持EChats主题（Theme）  
 
-# 2	安装说明
+# 安装说明
 ## 1、将插件复制到项目的Plugins目录下  
 ![image](img/1.jpg)  
 ## 2、如果需要引用其他Javascript文件（比如：百度地图扩展），将js文件复制到插件的Content\ECharts目录下  
 ![image](img/2.jpg)  
 
-# 3	使用方法  
+# 打包说明
+
+
+# 使用方法  
 ## 1、将ECharts Widget控件添加在UMG中  
 ![image](img/3.jpg)  
 ## 2、设置ECharts Widget控件的相关属性  
@@ -59,14 +62,14 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 
 下图中通过创建yAxis的Set data节点可以看到，data是EChartsOption_data1类型数组  
 ![image](img/15.jpg)  
-# 4	特殊蓝图节点说明  
-## 1、	SetOption与SetOptionJsonString节点  
+# 特殊蓝图节点说明  
+## 1、SetOption与SetOptionJsonString节点  
 ![image](img/16.jpg)  
 ![image](img/17.jpg)  
 节点中的AdditionalScript可以设置额外的js脚本，脚本位置在ECharts setOption之前，可以添加js的数据和函数定义，并在Option中调用。添加的数据和函数定义为全局变量，后续如果再次调用SetOption时也可以访问，参见示例：6_BaiduMap和8_KLine。  
 
 其中SetOption节点返回了最终生成的Option的Json字符串（含AddtionScript）  
-# 5	示例说明  
+# 示例说明  
 ## 运行示例
 打开插件中Content\Example\ExampleMap关卡，运行关卡  
 
@@ -95,11 +98,11 @@ ECharts的官方示例：全国主要城市空气质量 - 百度地图，加载�
 8_KLine  
 ECharts的官方示例：上证指数，同时使用了Json字符串和Option对象来设置EChartsWidget  
 
-# 6 使用技巧  
+# 使用技巧  
 ## 与ECharts一样，插件可以按需设置Option，需要更新Option时只需要设置更新的部分内容即可  
-比如：
-1、把Option的样式部分和数据部分分开，样式部分只设置一次，数据部分可以数据变化时设置。  
-2、将无法用Option对象设置的属性，用Json字符串的方式来设置。  
+比如： 
+1、把Option的样式部分和数据部分分开，样式部分只设置一次，数据部分可以当数据有变化时设置。  
+2、将无法用Option对象设置的部分属性，用Json字符串的方式来设置。  
 
 ## 设置Option对象后ECharts无法正确显示
 可以获取蓝图SetOption节点返回的符串，复制到Web版本的ECharts中进行错误分析（如果为插件bug请留言或邮件反馈）  
@@ -108,7 +111,7 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 例如：当需要创建一个data对象时，如果并不清楚是哪个UEChartsOption_data，可以先创建Set节点，然后查看需要的对象类型，再创建构造该对象类型的节点，或参考后面的对应关系表。  
 ![image](img/15.jpg)  
 
-# 7	已知问题  
+# 已知问题  
 ## 1、控件隐藏再显示后无响应
 同时运行的ECharts Widget控件超过5个时（包含引擎内置WebBrowser控件），控件隐藏再显示后只有5个控件有响应，此为引擎WebBrowser插件bug，参见：https://issues.unrealengine.com/issue/UE-171882 
 
