@@ -48,16 +48,14 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 插件移植的Option中的对象的结构的属性名与js中保持一致，对象的相关属性及可输入值请参考ECharts官方文档（除个写法特别灵活的属性，比如：series中markPoint的data，该对象没有细化，需要使用完整字符串设置，示例：8_Kline，不排除个别对象移植有问题，如发现影响使用请留言或邮件反馈）。  
 
 为了实现js中属性值的灵活写法，插件中所有非对象属性都为字符串类型（比如：legend的left属性可以输入20、'20%'、 'left', 'center', 'right'等），所以如果属性值是字符串类型，设置时需要带上单引号。  
-
 示例：  
 ![image](img/10.jpg) 
 ![image](img/11.jpg) 
 ![image](img/12.jpg) 
 ![image](img/13.jpg) 
 ![image](img/14.jpg)  
-由于ECharts的Option中存在很多同名对象，比如：很多对象都包含data，但部分对象的data结构一致（xAxis和yAxis），而另一些则不同。为了减少插件中的对象数量，移植时将同名的对象进行了汇总，一种结构在插件中生成一个对应的对象，多种结构的同名对象，移植时在对象名后带上索引号加以区分，唯一的对象名则不带序号，比如Echarts 的Option中共有25个不同结构的data对象，因此移植后插件代码中有EChartsOption_data0到EChartsOption_data24，共25个data对象，xAxis和yAxis中的data对象使用的是UEChartsOption_data1，而series的pie中的data对象使用的是UEChartsOption_data5。  
 
-当需要创建一个data对象时，如果并不清楚是哪个UEChartsOption_data，可以先创建Set节点，然后查看需要的对象类型，再创建构造该类型的节点，或参考后面的对应关系表。  
+由于ECharts的Option中存在很多同名对象，比如：很多对象都包含data，部分对象的data结构一致（xAxis和yAxis），而另一些则不同。为了减少插件中的对象数量，移植时将同名的对象进行了汇总，一种结构在插件中生成一个对应的对象，多种结构的同名对象，移植时在对象名后带上索引号加以区分，唯一的对象名则不带序号，比如Echarts的Option中共有25个不同结构的data对象，因此移植后插件代码中有EChartsOption_data0到EChartsOption_data24，共25个data对象，xAxis和yAxis中的data对象使用的是UEChartsOption_data1，而series的pie中的data对象使用的是UEChartsOption_data5。  
 
 下图中通过创建yAxis的Set data节点可以看到，data是EChartsOption_data1类型数组  
 ![image](img/15.jpg)  
@@ -99,12 +97,14 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 # 6 使用技巧  
 ## 与ECharts一样，插件可以按需设置Option，需要更新Option时只需要设置更新的部分内容即可  
 比如：
-1、把Option的样式部分和数据部分分开，样式部分只设置一次，数据部分可以多次设置。  
-2、将无法用Option对象设置的属性，用Json字符串的方式来设置  
+1、把Option的样式部分和数据部分分开，样式部分只设置一次，数据部分可以数据变化时设置。  
+2、将无法用Option对象设置的属性，用Json字符串的方式来设置。  
+
 ## 设置Option对象后ECharts无法正确显示
 可以获取蓝图SetOption节点返回的符串，复制到Web版本的ECharts中进行错误分析（如果为插件bug请留言或邮件反馈）  
 
 ## 判断要创建对象的名称  
+当需要创建一个data对象时，如果并不清楚是哪个UEChartsOption_data，可以先创建Set节点，然后查看需要的对象类型，再创建构造该类型的节点，或参考后面的对应关系表。  
 
 # 7	已知问题  
 ## 1、控件隐藏再显示后无响应
