@@ -67,9 +67,10 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 
 其中SetOption节点返回了最终生成的Option的Json字符串（含AddtionScript）  
 # 5	示例说明  
-打开插件中Content\Example\ExampleMap关卡，编辑关卡的LevelBlueprint，在Create Widget节点中选择示例WidgetBlueprint，然后运行关卡（更多示例添加中）  
-![image](img/18.jpg)  
-示例功能
+## 运行示例
+打开插件中Content\Example\ExampleMap关卡，运行关卡  
+
+## 示例功能（更多示例添加中）  
 1_RawJsonString  
 直接使用Option的Json字符串设置EChartsWidget  
   
@@ -104,7 +105,8 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 可以获取蓝图SetOption节点返回的符串，复制到Web版本的ECharts中进行错误分析（如果为插件bug请留言或邮件反馈）  
 
 ## 判断要创建对象的名称  
-当需要创建一个data对象时，如果并不清楚是哪个UEChartsOption_data，可以先创建Set节点，然后查看需要的对象类型，再创建构造该类型的节点，或参考后面的对应关系表。  
+例如：当需要创建一个data对象时，如果并不清楚是哪个UEChartsOption_data，可以先创建Set节点，然后查看需要的对象类型，再创建构造该对象类型的节点，或参考后面的对应关系表。  
+![image](img/15.jpg)  
 
 # 7	已知问题  
 ## 1、控件隐藏再显示后无响应
@@ -113,8 +115,8 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 临时解决办法为在恢复控件的显示前先修改下控件的大小再还原，如下图  
 ![image](img/19.jpg)  
 ## 2、打包后的程序无法运行
-如果UE项目为蓝图项目，插件在编辑器中运行正常，但打包后程序无法运行，日志出现如下错误：*LogPluginManager: Error: Unable to load plugin 'WebBrowserWidget'. Aborting.*。但是编辑器中Web Browser插件已启用。  
+如果目为纯蓝图项目，插件在编辑器中运行正常，但打包后运行程序闪退，日志出现如下错误：*LogPluginManager: Error: Unable to load plugin 'WebBrowserWidget'. Aborting.*。但是编辑器中Web Browser插件已启用。  
 
-解决办法为在项目中添加一个空c++类即可：  
+解决办法为在项目中添加一个空c++类：  
 ![image](img/20.jpg)  
 ![image](img/21.jpg)  
