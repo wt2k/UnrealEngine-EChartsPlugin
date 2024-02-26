@@ -1,4 +1,14 @@
 # UnrealEngine-EChartsPlugin
+[简介](#简介)  
+[安装说明](#安装说明)  
+[打包说明](#打包说明)  
+[使用方法](#使用方法)  
+[特殊蓝图节点说明](#特殊蓝图节点说明)  
+[示例说明](#示例说明)  
+[使用技巧](#使用技巧)  
+[已知问题](#已知问题)  
+[ECharts Option对象与插件Option对象对应表](#echarts-option对象与插件option对象对应表)  
+
 # 简介
 本插件将ECharts集成到了Unreal Engine中，基于UMG控件，ECharts版本5.4.4，可以实现ECharts绝大多数图表效果，目前测试了Windows平台，实现了以下功能：  
 1、	支持使用蓝图节点动态创建ECharts Option  
@@ -45,13 +55,13 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 对ECharts Widget调用DisppatchAction传入action的Json字符串  
 ![image](img/8.jpg)  
 ## 6、通过蓝图节点动态创建ECharts Option对象说明
-本插件在UE中移植了绝大部分ECharts的Option中的对象，可以通过蓝图构造复杂的Option结构。  
+本插件在UE中移植了绝大部分ECharts Option中的对象，可以按需设置对象，通过蓝图构造复杂的Option结构。  
 ![image](img/9.jpg)  
 上图中，首先创建了一个tooltip对象，设置了trigger属性，然后创建了一个axis pointer，设置了type属性，再将axis pointer对象设置到tooltip，最后将tooltip对象设置到Option，整个Option几乎都可以使用这种方式创建，示例：8_KLine。  
 
 当对象的某个属性有设置，才会在最终的Option中生成相应的属性字符串，未设置的属性不会出现在Option中，比如上图中axisPointer对象会在tooltip中生成Json对象字符串：axisPointer: {type:’cross’}，而axisPointer的其它属性不会出现。这样可以实现ECharts中option的合并操作，使得设置option的对象和Json字符串可以同时使用。  
 
-插件移植的Option中的对象的结构的属性名与js中保持一致，对象的相关属性及可输入值请参考ECharts官方文档（除个写法特别灵活的属性，比如：series中markPoint的data，该对象没有细化，需要使用完整字符串设置，示例：8_Kline，不排除个别对象移植有问题，如发现影响使用请留言或邮件反馈）。  
+插件移植的Option中的对象的结构的属性名与js中保持一致，对象的相关属性及可输入值请参考[ECharts配置项官方文档](https://echarts.apache.org/zh/option.html)（除个写法特别灵活的属性，比如：series中markPoint的data，该对象没有细化，需要使用完整字符串设置，示例：8_Kline，不排除个别对象移植有问题，如发现影响使用请留言或邮件反馈）。  
 
 为了实现js中属性值的灵活写法，插件中所有非对象属性都为字符串类型（比如：legend的left属性可以输入20、'20%'、 'left', 'center', 'right'等），所以如果属性值是字符串类型，设置时需要带上单引号。  
 示例：  
@@ -61,9 +71,9 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 ![image](img/13.jpg) 
 ![image](img/14.jpg)  
 
-由于ECharts的Option中存在很多同名对象，比如：很多对象都包含data，部分对象的data结构一致（xAxis和yAxis），而另一些则不同。为了减少插件中的对象数量，移植时将同名的对象进行了汇总，一种结构在插件中生成一个对应的对象，多种结构的同名对象，移植时在对象名后带上索引号加以区分，唯一的对象名则不带序号，比如Echarts的Option中共有25个不同结构的data对象，因此移植后插件代码中有EChartsOption_data0到EChartsOption_data24，共25个data对象，xAxis和yAxis中的data对象使用的是UEChartsOption_data1，而series的pie中的data对象使用的是UEChartsOption_data5。  
+由于ECharts的Option中存在很多同名对象，比如：很多对象都包含data，部分对象的data结构一致（xAxis和yAxis），而另一些则不同。为了减少插件中的对象数量，移植时将同名的对象进行了汇总，一种结构在插件中生成一个对应的对象，多种结构的同名对象，移植时在对象名后带上索引号加以区分，唯一的对象名则不带序号，比如Echarts的Option中共有25个不同结构的data对象，因此移植后插件代码中有EChartsOption_data0到EChartsOption_data24，共25个data对象，xAxis和yAxis中的data对象使用的是UEChartsOption_data1，而series的pie中的data对象使用的是UEChartsOption_data5，完整的对应关系参考[EChartOption对象与插件Option对象对应表](MapTable.md)。  
 
-下图中通过创建yAxis的Set data节点可以看到，data是EChartsOption_data1类型数组  
+下图中通过创建yAxis的Set data节点也可以看到，data是EChartsOption_data1类型数组  
 ![image](img/15.jpg)  
 # 特殊蓝图节点说明  
 ## 1、SetOption与SetOptionJsonString节点  
@@ -130,6 +140,6 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 ![image](img/20.jpg)  
 ![image](img/21.jpg)  
 
-# ECharts Option对象与插件Option对象对应表
-[EChartOption对象与插件Option对象对应表](MapTable.md)
+# ECharts Option对象与插件Option对象对应表  
+[ECharts Option对象与插件Option对象对应表](MapTable.md)
 
