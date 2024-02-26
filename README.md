@@ -94,14 +94,15 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 设置ECharts背景为透明  
   
 6_BaiduMap  
-ECharts的官方示例：全国主要城市空气质量 - 百度地图，加载了ECharts百度地图扩展js文件，并在设置EChartsWidget的Option时使用了additionalScript来设置额外所需的js代码  
-本示例中直接使用了ECharts示例中百度地图api的AK（https://api.map.baidu.com/api?v=3.0&ak=）请修改为自己申请的AK  
+ECharts的官方示例：全国主要城市空气质量 - 百度地图，加载了ECharts百度地图扩展js文件，并在设置EChartsWidget的Option时使用了additionalScript来设置额外所需的js数据和代码  
+  
+本示例中直接使用了ECharts示例中百度地图api的AK（https://api.map.baidu.com/api?v=3.0&ak= ）请修改为自己申请的AK  
   
 7_Theme  
 为EChartsWidget设置ECharts Theme Json字符串  
   
 8_KLine  
-ECharts的官方示例：上证指数，同时使用了Json字符串和Option对象来设置EChartsWidget  
+ECharts的官方示例：上证指数，同时使用了Json字符串和Option对象来设置EChartsWidget的Option  
 
 # 使用技巧  
 ## 与ECharts一样，插件可以按需设置Option，需要更新Option时只需要设置更新的部分内容即可  
@@ -118,7 +119,7 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 
 # 已知问题  
 ## 1、控件隐藏再显示后无响应
-同时运行的ECharts Widget控件超过5个时（包含引擎内置WebBrowser控件），控件隐藏再显示后只有5个控件有响应，此为引擎WebBrowser插件bug，参见：https://issues.unrealengine.com/issue/UE-171882 
+同时运行的ECharts Widget控件超过5个时（包含引擎内置WebBrowser控件），控件隐藏再显示后只有5个控件有响应，此为引擎WebBrowser插件bug，参见：https://issues.unrealengine.com/issue/UE-171882 **此bug处于积压状态（backlogged）请大家投票希望UE早点修复**
 
 临时解决办法为在恢复控件的显示前先修改下控件的大小再还原，如下图  
 ![image](img/19.jpg)  
@@ -128,3 +129,7 @@ ECharts的官方示例：上证指数，同时使用了Json字符串和Option对
 解决办法为在项目中添加一个空c++类：  
 ![image](img/20.jpg)  
 ![image](img/21.jpg)  
+
+# ECharts Option对象与插件Option对象对应表
+[EChartOption对象与插件Option对象对应表](MapTable.md)
+
