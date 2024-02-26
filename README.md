@@ -1,6 +1,6 @@
 # UnrealEngine-EChartsPlugin
 # 简介
-本插件将ECharts集成到了Unreal Engine中，基于UMG控件，ECharts版本5.4.4，目前测试了Windows平台，实现了以下功能：  
+本插件将ECharts集成到了Unreal Engine中，基于UMG控件，ECharts版本5.4.4，可以实现ECharts绝大多数图表效果，目前测试了Windows平台，实现了以下功能：  
 1、	支持使用蓝图节点动态创建ECharts Option  
 2、	支持直接使用Json字符串的ECharts Option  
 3、	支持部分ECharts Extension（如：百度地图扩展）  
@@ -10,13 +10,16 @@
 7、	支持EChats主题（Theme）  
 
 # 安装说明
-## 1、将插件复制到项目的Plugins目录下  
+## 1、将插件复制到项目Plugins目录下  
 ![image](img/1.jpg)  
 ## 2、如果需要引用其他Javascript文件（比如：百度地图扩展），将js文件复制到插件的Content\ECharts目录下  
 ![image](img/2.jpg)  
 
 # 打包说明
-
+插件Content\ECharts目录下的所有文件，在项目打包时会复制到打包输出目录中
+![image](img/23.jpg)  
+  
+如果打包后程序闪退，参见本文档最后的已知问题  
 
 # 使用方法  
 ## 1、将ECharts Widget控件添加在UMG中  
@@ -24,7 +27,7 @@
 ## 2、设置ECharts Widget控件的相关属性  
 ![image](img/4.jpg)  
 Enable Transparent：背景透明  
-Extension Script Files：ECharts页面额外加载的js脚本文件  
+Extension Script Files：ECharts页面额外加载的js脚本文件（可以是Content\ECharts目录下的js文件名，也可以是在线url地址，参见示例：6_BaiduMap）  
 Theme Json String：ECharts使用的Theme的Json字符串  
 Events：要接收的ECharts事件，勾选后蓝图节点将收到对应的事件Json字符串  
 
@@ -68,11 +71,12 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
 ![image](img/17.jpg)  
 节点中的AdditionalScript可以设置额外的js脚本，脚本位置在ECharts setOption之前，可以添加js的数据和函数定义，并在Option中调用。添加的数据和函数定义为全局变量，后续如果再次调用SetOption时也可以访问，参见示例：6_BaiduMap和8_KLine。  
 
-其中SetOption节点返回了最终生成的Option的Json字符串（含AddtionScript）  
+其中SetOption节点返回了最终生成的Option的Json字符串（含AddtionalScript）  
 # 示例说明  
 ## 运行示例
-打开插件中Content\Example\ExampleMap关卡，运行关卡  
-
+打开插件中Content\Example\ExampleMap关卡，运行关卡，在ui中点击对应的示例按钮查看示例  
+![image](img/22.jpg)  
+  
 ## 示例功能（更多示例添加中）  
 1_RawJsonString  
 直接使用Option的Json字符串设置EChartsWidget  
@@ -91,6 +95,7 @@ ECharts Widget的属性中勾选的事件，当ECharts中该事件发生时可�
   
 6_BaiduMap  
 ECharts的官方示例：全国主要城市空气质量 - 百度地图，加载了ECharts百度地图扩展js文件，并在设置EChartsWidget的Option时使用了additionalScript来设置额外所需的js代码  
+本示例中直接使用了ECharts示例中百度地图api的AK（https://api.map.baidu.com/api?v=3.0&ak=）请修改为自己申请的AK  
   
 7_Theme  
 为EChartsWidget设置ECharts Theme Json字符串  
