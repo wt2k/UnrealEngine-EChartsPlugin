@@ -136,6 +136,9 @@ The temporary solution is modify the size of the control and then restore it bef
 ## 2. The packaged program cannot run.
 If the project is a pure blueprint project, the plugin runs normally in the editor, but the program flashes back after packing, and the log shows the following error:*LogPluginManager: Error: Unable to load plugin 'WebBrowserWidget'. Aborting.*. But the Web Browser plugin is enabled in the editor.  
 
+## 3. Get svg using jquery
+The server needs to configure Access-Control-Allow-Origin* to avoid cors errors
+
 The solution is to add an empty c++ class to the project:  
 ![image](img/20.jpg)  
 ![image](img/21.jpg)  
